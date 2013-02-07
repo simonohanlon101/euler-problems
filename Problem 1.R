@@ -1,5 +1,11 @@
+#
+#
 # Project Euler    // Problem 1:
 # Find the sum of all the multiples of 3 or 5 below 1000
+#
+#
+
+
 
 x <- 1:999
 sum( x[ x %% 5 == 0 | x %% 3 == 0 ] )
