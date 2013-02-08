@@ -40,7 +40,7 @@ palindrome_prod <- function( n = 3 ){
 # 3) Use max() to find the largest of these matches
 
 
-# The more flexibleand faster algorithm then becomes:
+# The more flexible and faster algorithm then becomes:
 
 palindrome_prod2 <- function( n ){
   x <- 10^( n - 1 ) : ( 10^(n) - 1 )
@@ -60,6 +60,8 @@ palindrome_prod2 <- function( n ){
   return(mat)
   }
 
+
+# There is of course scope for significant R optimisations which I hope I will get round to implementing
 
 
 # Some timings for the two algo's for n = 2, and then n = 3 (10 replications each):
