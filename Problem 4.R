@@ -15,7 +15,7 @@
 
 # As this function is written n must be 3 or the palindrome matching will fail
 # An improved algo is below, which also avoids using matrices so that n can
-# get larger
+# get larger. The improved algo below results in 2x speed-up for n = 3
 
 palindrome_prod <- function( n = 3 ){
   x <- 10^( n - 1 ) : ( 10^(n) - 1 )
