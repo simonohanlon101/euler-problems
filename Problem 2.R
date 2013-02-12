@@ -17,7 +17,7 @@ fib <- function( lim ){
     b <- 1
     ans <- 0
     while( b < lim ){
-        c <- a + b
+		c <- a + b
 		a <- b
 	    b <- c
 		if( c %% 2 == 0 ){
@@ -47,7 +47,7 @@ Unit: microseconds
 
 fib2 <- function( lim , d ){
 	n <- 1:floor( 2.0801 * log( lim ) + 2.1408 ) 	# There are n terms in Fibonnaci sequence below limit given by this equation
-    phi = (1 + sqrt(5)) / 2	
+	phi = (1 + sqrt(5)) / 2	
 	ans <- floor( phi^n / sqrt(5) + 1/2 )		# f(n) for each n in sequence
 	ans <- sum( ans[ ans %% d == 0 ] )			# Use vectorisation to select numbers evenly divisible by the given divisor
 	return( paste( "The sum of even Fibonnaci numbers below " , lim , " is " , ans , sep = "" ) )
