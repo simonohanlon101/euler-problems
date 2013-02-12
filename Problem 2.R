@@ -45,11 +45,9 @@ Unit: microseconds
 # Even still let's 'R-ise', it using some mathematical identities.....
 
 fib2 <- function( lim , d ){
-	require( Rmpfr )
-	lim <- mpfr( lim , 1024 )
-	n <- 1:floor(2.0801 * as.integer( log( lim ) ) + 2.1408) 	# There are n terms in Fibonnaci sequence below limit given by this equation
+	n <- 1:floor( 2.0801 * log( lim ) + 2.1408 ) 	# There are n terms in Fibonnaci sequence below limit given by this equation
     phi = (1 + sqrt(5)) / 2	
-	ans <- floor( mpfr( phi^n , 1024 ) / sqrt(5) + 1/2 )		# f(n) for each n in sequence
+	ans <- floor( phi^n / sqrt(5) + 1/2 )		# f(n) for each n in sequence
 	ans <- sum( ans[ ans %% d == 0 ] )			# Use vectorisation to select numbers evenly divisible by the given divisor
 	return( paste( "The sum of even Fibonnaci numbers below " , lim , " is " , ans , sep = "" ) )
 }
@@ -65,12 +63,19 @@ Unit: microseconds
 
 
 # Around a five-times speedup, plus we can choose the divisor we want to test against.
-# The only other alterations I might make are some code to allow it to run on limits larger
-# than ~2.147 billion (limits of R integer calculations). We can use the 'gmp' package
-# for arbitrarily BIGGGGG numbers like so...
+# The only other alterations I might make are some code to allow it to run on larger limits
+# currently the max value is about 1e16 - after this there is a complete loss of accuracy
+# in the modulo division. We can use the 'gmp' package for arbitrarily BIGGGGG numbers like so...
 
+#
+# p.s. see http://stackoverflow.com/q/14818267/1478381 for some discussions on Big Numbers and Ben Bolker's "%e%" hack
+#
 
-fib3 <- function( lim = "1" , d ){
+fib3 <- function( lim = "1" , d = 2 ){	
+	if( lim == Inf ){
+	# Due to R converting numbers to a double before a bigz anything larger than .Machine$double.xmax (~1.79e308) needs to be specified as a character vector to avoid conversion error (see Note in ?as.bigz)
+	stop("lim is greater than Machine double; Specify lim as a character vector e.g. lim = \"1e500\" to avoid conversion errors")
+	}
 	require( gmp )
 	"%e%" <- function( a , e ){
 		as.bigz( a ) * 10^as.bigz( e )
@@ -94,8 +99,17 @@ fib3 <- function( lim = "1" , d ){
 
 
 
-# This algo is around 100 times slower, BUT as 0.1s does it really matter?
-# Plus we can calculate for really big limits....
+> microbenchmark( fib(2e9) , fib2(2e9,2) , fib3(2e9 , 2), times = 100 )
+Unit: microseconds
+            expr      min        lq   median        uq       max
+1     fib(2e+09)  139.120  145.6915  151.193  160.8120  2357.663
+2 fib2(2e+09, 2)   30.457   32.3805   36.398   42.5535    73.534
+3 fib3(2e+09, 2) 1892.226 1935.2910 2011.555 2463.5675 14599.451
+
+
+# This algo is an order of magnitude slower than the first and two orders of magnitude than the
+# fastest algorithmn, BUT at ~0.002s does it really matter? Plus it's way more flexible. We can
+# calculate the sum of Fibonacci numberes for really big limits....
 
 
 > fib3( 30 , 2 )
