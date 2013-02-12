@@ -4,6 +4,7 @@
 # What is the sum of all even Fibonacci numbers below 4e6?
 # 
 #
+# Note: There are 3 algorithmns in this script, each with different strengths and weaknesses.
 
 
 
