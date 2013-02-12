@@ -43,7 +43,7 @@ Unit: microseconds
 
 
 
-# Even still let's 'R-ise', it using some mathematical identities.....
+# Even still let's 'R-ise' it using some mathematical identities.....
 
 fib2 <- function( lim , d ){
 	n <- 1:floor( 2.0801 * log( lim ) + 2.1408 ) 	# There are n terms in Fibonnaci sequence below limit given by this equation
