@@ -19,7 +19,7 @@ fib <- function( lim ){
     while( b < lim ){
 		c <- a + b
 		a <- b
-	    b <- c
+		b <- c
 		if( c %% 2 == 0 ){
 		    ans <- ans + c
 		}	
