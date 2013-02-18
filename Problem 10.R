@@ -43,14 +43,14 @@
 
 esieve <- function( x ){ 
   candidates <- seq.int( 2 , x , 1 )
-	nprime <- logical( length = length( candidates ) ) # Vector indicating whether a number is NOTPRIME (default = FALSE)
-	end <- floor( sqrt( x ) )
-	for( i in candidates[ 1:end ] ){
-		if( !nprime[ (i-1) ] ){
-			nprime[ ( c( seq.int( ( i*2 ) , x , i ) ) - 1 ) ] <- TRUE
-			}
-		}
-	ans <- paste("Sum of primes below " , x , " is: " , sum( candidates[ !nprime ] ) , sep = "" )
+  nprime <- logical( length = length( candidates ) ) # Vector indicating whether a number is NOTPRIME (default = FALSE)
+  end <- floor( sqrt( x ) )
+  for( i in candidates[ 1:end ] ){
+    if( !nprime[ (i-1) ] ){
+      nprime[ ( c( seq.int( ( i*2 ) , x , i ) ) - 1 ) ] <- TRUE
+      }
+    }
+  ans <- paste("Sum of primes below " , x , " is: " , sum( candidates[ !nprime ] ) , sep = "" )
   return( ans )
 }
 
