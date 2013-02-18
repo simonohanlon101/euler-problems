@@ -19,6 +19,10 @@
 # If any have no remainder it's not prime, otherwise
 # prime. This however wastes a lot of compute time.
 
+# I've seen a Python brute-force approach exactly
+# like this that takes > 30secs. The method below
+# takes 0.37 secs.
+
 # Let's look at it from the other perspective. 2 is
 # the first prime. Therefore all multiples of 2 are
 # not prime. If we strike out all multiples of 2 as
