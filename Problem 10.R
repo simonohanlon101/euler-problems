@@ -1,6 +1,6 @@
 #
 #
-# Project Euler    // Problem 6:
+# Project Euler    // Problem 10:
 # Summation of primes
 #
 #
